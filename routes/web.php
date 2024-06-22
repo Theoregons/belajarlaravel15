@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\PagesController;
 use App\Http\Controllers\SiswaController;
+use App\Http\Controllers\UploadController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -61,3 +63,12 @@ Route::resource('siswa', SiswaController::class)->middleware(['auth', 'admin']);
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::post('users/import', [UserController::class, 'import'])->name('users.import');
+Route::post('siswa/import', [UserController::class, 'siswaimport'])->name('siswa.import');
+Route::get('users/export', [UserController::class, 'export'])->name('users.export');
+
+Route::get('impor', function () {
+    return view('import');
+});
+
+Route::resource('upload', UploadController::class);
